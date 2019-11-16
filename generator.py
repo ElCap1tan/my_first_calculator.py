@@ -13,7 +13,7 @@ nums = range(min_num, max_num+1)
 signs = ['+', '-', '/', '*']
 num_of_ifs = len(signs)*(max_num-min_num+1)**2
 
-print("""#!/usr/bin/env python3
+print(f"""#!/usr/bin/env python3
 
 # my_first_calculator.py by AceLewis
 # TODO: Make it work for all floating point numbers too
@@ -22,19 +22,21 @@ if 3/2 == 1:  # Because Python 2 does not know maths
     input = raw_input  # Python 2 compatibility
 
 print('Welcome to this calculator!')
-print('It can add, subtract, multiply and divide whole numbers from {} to {}')
+print('It can add, subtract, multiply and divide whole numbers from {min_num} to {max_num}')
 num1 = int(input('Please choose your first number: '))
 sign = input('What do you want to do? +, -, /, or *: ')
 num2 = int(input('Please choose your second number: '))
-""".format(min_num, max_num), file=python_file)
+print()
+if num1 > {max_num} or num1 < {min_num} or num2 > {max_num} or num2 < {min_num}:
+    print("Please enter only positive numbers smaller than 100 and make sure you have chosen the correct sign!")
+else:""", file=python_file)
 
 # For all the numbers and all the signs
 current_sign = signs[0]
 for sign in signs:
-    new_sign = True
     for num1 in nums:
         for num2 in nums:
-            equation = "d({}){}d({})".format(num1, sign, num2)
+            equation = f"d({num1}){sign}d({num2})"
             try:
                 equals = eval(equation)
             except ZeroDivisionError:
@@ -45,17 +47,13 @@ for sign in signs:
                 else:
                     equals = 'Undefined'
             if num2 == 0:
-                print("if num1 == {} and sign == '{}' and num2 == {}:".format(num1, sign, num2), file=python_file)
-                print('    print("{}{}{} = {}")'.format(num1, sign, num2, equals), file=python_file)
-                new_sign = False
+                print(f"    if num1 == {num1} and sign == '{sign}' and num2 == {num2}:", file=python_file)
+                print(f'        print("{num1}{sign}{num2} = {equals}")', file=python_file)
             else:
-                print("elif num1 == {} and sign == '{}' and num2 == {}:".format(num1, sign, num2), file=python_file)
-                print('    print("{}{}{} = {}")'.format(num1, sign, num2, equals), file=python_file)
-print('else:', file=python_file)
-print('    print("Please enter only numbers smaller than 100 and make sure you have chosen the correct sign!")',
-      file=python_file)
+                print(f"    elif num1 == {num1} and sign == '{sign}' and num2 == {num2}:", file=python_file)
+                print(f'        print("{num1}{sign}{num2} = {equals}")', file=python_file)
 print('', file=python_file)
-print('print("Thanks for using this calculator, goodbye :)")', file=python_file)
+print('print("\\nThanks for using this calculator, goodbye :)")', file=python_file)
 
 # Close the file we have written to
 python_file.close()
