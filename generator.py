@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+from decimal import Decimal as d
 import decimal
 
 # ---------------------------------------------
@@ -21,6 +22,8 @@ num_of_ifs = len(signs)*(max_num-min_num+1)**2
 # Generate the calculator script
 print(f"""#!/usr/bin/env python3
 
+import time
+
 # my_first_calculator.py by AceLewis
 # TODO: Make it work for all floating point numbers too
 
@@ -35,12 +38,19 @@ num2 = int(input('Please choose your second number: '))
 print()
 if num1 > {max_num} or num1 < {min_num} or num2 > {max_num} or num2 < {min_num}:
     print("Please enter only positive numbers smaller than 100 and make sure you have chosen the correct sign!")
-else:""", file=python_file)
+else:
+    # start = time.clock_gettime_ns(time.CLOCK_REALTIME)
+""", file=python_file)
 
 # ...for all the numbers and all the signs
 current_sign = signs[0]
 for sign in signs:
     for num1 in nums:
+        if num1 == min_num:
+            print(f"    if num1 == {num1} and sign == '{sign}':", file=python_file)
+        else:
+            print(f"    elif num1 == {num1} and sign == '{sign}':", file=python_file)
+
         for num2 in nums:
             equation = f"d({num1}){sign}d({num2})"
             try:
@@ -52,14 +62,18 @@ for sign in signs:
                     equals = 'Inf'
                 else:
                     equals = 'Undefined'
+
             if num2 == min_num:
-                print(f"    if num1 == {num1} and sign == '{sign}' and num2 == {num2}:", file=python_file)
-                print(f'        print("{num1}{sign}{num2} = {equals}")', file=python_file)
+                print(f"        if num2 == {num2}:", file=python_file)
+                print(f'            print("{num1}{sign}{num2} = {equals}")', file=python_file)
             else:
-                print(f"    elif num1 == {num1} and sign == '{sign}' and num2 == {num2}:", file=python_file)
-                print(f'        print("{num1}{sign}{num2} = {equals}")', file=python_file)
+                print(f"        elif num2 == {num2}:", file=python_file)
+                print(f'            print("{num1}{sign}{num2} = {equals}")', file=python_file)
+
+print('    # end = time.clock_gettime_ns(time.CLOCK_REALTIME)', file=python_file)
 print('', file=python_file)
 print('print("\\nThanks for using this calculator, goodbye :)")', file=python_file)
+print('# print(f"\\nThe execution took {(end - start) / 1000 / 1000} ms")', file=python_file)
 
 # Close the file we have written to
 python_file.close()
