@@ -1,18 +1,24 @@
 #!/usr/bin/env python3
 
-from decimal import Decimal as d
 import decimal
+
+# ---------------------------------------------
 # Generator used to create my_first_calculator
+# ---------------------------------------------
 
 # Open a file that we can write to
 python_file = open('my_first_calculator.py', 'w')
+
 # The minimum and maximum numbers we can use
 min_num = -99
 max_num = 99
 nums = range(min_num, max_num+1)
+
+# Defining the operations the calculator supports
 signs = ['+', '-', '/', '*']
 num_of_ifs = len(signs)*(max_num-min_num+1)**2
 
+# Generate the calculator script
 print(f"""#!/usr/bin/env python3
 
 # my_first_calculator.py by AceLewis
@@ -31,7 +37,7 @@ if num1 > {max_num} or num1 < {min_num} or num2 > {max_num} or num2 < {min_num}:
     print("Please enter only positive numbers smaller than 100 and make sure you have chosen the correct sign!")
 else:""", file=python_file)
 
-# For all the numbers and all the signs
+# ...for all the numbers and all the signs
 current_sign = signs[0]
 for sign in signs:
     for num1 in nums:
