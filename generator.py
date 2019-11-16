@@ -7,7 +7,7 @@ import decimal
 # Open a file that we can write to
 python_file = open('my_first_calculator.py', 'w')
 # The minimum and maximum numbers we can use
-min_num = 0
+min_num = -99
 max_num = 99
 nums = range(min_num, max_num+1)
 signs = ['+', '-', '/', '*']
@@ -46,7 +46,7 @@ for sign in signs:
                     equals = 'Inf'
                 else:
                     equals = 'Undefined'
-            if num2 == 0:
+            if num2 == min_num:
                 print(f"    if num1 == {num1} and sign == '{sign}' and num2 == {num2}:", file=python_file)
                 print(f'        print("{num1}{sign}{num2} = {equals}")', file=python_file)
             else:
