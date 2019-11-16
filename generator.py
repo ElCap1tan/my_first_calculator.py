@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 from decimal import Decimal as d
 import decimal
 # Generator used to create my_first_calculator
@@ -6,12 +8,14 @@ import decimal
 python_file = open('my_first_calculator.py', 'w')
 # The minimum and maximum numbers we can use
 min_num = 0
-max_num = 50
+max_num = 99
 nums = range(min_num, max_num+1)
 signs = ['+', '-', '/', '*']
 num_of_ifs = len(signs)*(max_num-min_num+1)**2
 
-print("""# my_first_calculator.py by AceLewis
+print("""#!/usr/bin/env python3
+
+# my_first_calculator.py by AceLewis
 # TODO: Make it work for all floating point numbers too
 
 if 3/2 == 1:  # Because Python 2 does not know maths
@@ -24,8 +28,10 @@ sign = input('What do you want to do? +, -, /, or *: ')
 num2 = int(input('Please choose your second number: '))
 """.format(min_num, max_num), file=python_file)
 
-# For all the numbers and all the
+# For all the numbers and all the signs
+current_sign = signs[0]
 for sign in signs:
+    new_sign = True
     for num1 in nums:
         for num2 in nums:
             equation = "d({}){}d({})".format(num1, sign, num2)
@@ -38,11 +44,16 @@ for sign in signs:
                     equals = 'Inf'
                 else:
                     equals = 'Undefined'
-            # No elif's used to be true to the story and also because
-            # Python will throw a recursion error when too many are used
-            print("if num1 == {} and sign == '{}' and num2 == {}:".format(num1, sign, num2), file=python_file)
-            print('    print("{}{}{} = {}")'.format(num1, sign, num2, equals), file=python_file)
-
+            if num2 == 0:
+                print("if num1 == {} and sign == '{}' and num2 == {}:".format(num1, sign, num2), file=python_file)
+                print('    print("{}{}{} = {}")'.format(num1, sign, num2, equals), file=python_file)
+                new_sign = False
+            else:
+                print("elif num1 == {} and sign == '{}' and num2 == {}:".format(num1, sign, num2), file=python_file)
+                print('    print("{}{}{} = {}")'.format(num1, sign, num2, equals), file=python_file)
+print('else:', file=python_file)
+print('    print("Please enter only numbers smaller than 100 and make sure you have chosen the correct sign!")',
+      file=python_file)
 print('', file=python_file)
 print('print("Thanks for using this calculator, goodbye :)")', file=python_file)
 
