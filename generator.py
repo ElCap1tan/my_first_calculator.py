@@ -22,7 +22,7 @@ num_of_ifs = len(signs)*(max_num-min_num+1)**2
 # Generate the calculator script
 print(f"""#!/usr/bin/env python3
 
-import time
+# import time
 
 # my_first_calculator.py by AceLewis
 # TODO: Make it work for all floating point numbers too
@@ -33,11 +33,12 @@ if 3/2 == 1:  # Because Python 2 does not know maths
 print('Welcome to this calculator!')
 print('It can add, subtract, multiply and divide whole numbers from {min_num} to {max_num}')
 num1 = int(input('Please choose your first number: '))
-sign = input('What do you want to do? +, -, /, or *: ')
+sign = input(\"What do you want to do? {str(signs)}: \")
 num2 = int(input('Please choose your second number: '))
 print()
-if num1 > {max_num} or num1 < {min_num} or num2 > {max_num} or num2 < {min_num}:
-    print("Please enter only positive numbers smaller than 100 and make sure you have chosen the correct sign!")
+if num1 > {max_num} or num1 < {min_num} or num2 > {max_num} or num2 < {min_num} or sign not in {str(signs)}:
+    print('Please enter only whole numbers between {min_num} and {max_num}, '
+            'and make sure you have chosen the correct sign!')
 else:
     # start = time.clock_gettime_ns(time.CLOCK_REALTIME)
 """, file=python_file)
